@@ -48,6 +48,6 @@ gem 'rails_12factor', group: :production
 
 gem 'bootstrap-sass'
 
-gem "awesome_print" group: :development
+gem "awesome_print", group: :development
 
 ruby "2.1.1"
