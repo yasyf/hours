@@ -4,8 +4,8 @@ App.controller 'HomeCtrl', ['$scope', 'Restangular', ($scope, Restangular) ->
 		entry.end = new Date(entry.end)
 		entry
 	$scope.addEntry = ->
-		e = Restangular.all('entries')
-		e.post($scope.entry).then (entry) ->
+		entries = Restangular.all('entries')
+		entries.post($scope.entry).then (entry) ->
 			$scope.entries.push $scope.addDates(entry)
 	$scope.sumHours = ->
 		$scope.hours = $scope.entries?.reduce (t, n) ->
@@ -13,6 +13,11 @@ App.controller 'HomeCtrl', ['$scope', 'Restangular', ($scope, Restangular) ->
 		, 0
 	$scope.updateInputs = ->
 		$scope.entry.description = $scope.entry.start.toLocaleString 'en-us', weekday: 'long', month: "long", day: 'numeric'
+	$scope.togglePaid = (e) ->
+		entry = Restangular.one('entries', e.id)
+		entry.paid = !e.paid
+		entry.patch()
+		e.paid = entry.paid
 	init = ->
 		$scope.tab = 0
 		Restangular.all('entries').getList().then (entries) ->

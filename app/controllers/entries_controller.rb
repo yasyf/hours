@@ -14,5 +14,10 @@ class EntriesController < ApplicationController
 		render json: @entry
 	end
 
+	def update
+		@entry = Entry.find(params[:id])
+		@entry.update_attributes(params.permit(:paid))
+		render json: @entry
+	end
 
 end

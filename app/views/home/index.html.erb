@@ -9,13 +9,15 @@
 
 	<div class='tab' ng-show='tab == 0'>
 		<div class='row' ng-click='sumHours()'>
-			{{sumHours()}} Total Hours
+			<p>{{sumHours()}} Total Hours</p>
 		</div>
 		<br>
 		<div class='row'>
 			<div class='col-md-6' ng-repeat='entry in entries | orderBy:"-end"'>
-				<p>{{entry.start | date: 'fullDate'}}</p>
-				<p>{{entry.start | date:'shortTime'}} - {{entry.end | date:'shortTime'}}</p>
+				<div ng-class="{'bg-danger': !entry.paid, 'bg-success': entry.paid}" ng-click="togglePaid(entry)">
+					<p>{{entry.start | date: 'fullDate'}}</p>
+					<p>{{entry.start | date:'shortTime'}} - {{entry.end | date:'shortTime'}}</p>
+				</div>
 			</div>
 		</div>
 	</div>
