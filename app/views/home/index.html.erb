@@ -1,4 +1,4 @@
-<div class="container" ng-controller="HoursCtrl">
+<div class="container" ng-controller="HomeCtrl">
 	<div class="header">
 		<ul class="nav nav-pills pull-right">
 			<li ng-class="{active: tab == 0}" ng-click="tab = 0"><a>Home</a></li>
@@ -8,26 +8,49 @@
 	</div>
 
 	<div class='tab' ng-show='tab == 0'>
-		<div class="jumbotron">
-			<h1>Jumbotron heading</h1>
-			<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-			<p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+		<div class='row' ng-click='sumHours()'>
+			{{sumHours()}} Total Hours
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-md-6' ng-repeat='entry in entries | orderBy:"-end"'>
+				<p>{{entry.start | date: 'fullDate'}}</p>
+				<p>{{entry.start | date:'shortTime'}} - {{entry.end | date:'shortTime'}}</p>
+			</div>
 		</div>
 	</div>
 
 	<div class='tab' ng-show='tab == 1'>
-		<div class="row marketing">
-			<div class="col-lg-12">
-			<h4>Subheading</h4>
-			<p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-			<h4>Subheading</h4>
-			<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-			<h4>Subheading</h4>
-			<p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-			</div>
+		<div class='row'>
+			<h4>Add Entry</h4>
 		</div>
+		<div class='row'>
+			<p>
+				<label>Description:</label>
+				<input type='text' ng-model='entry.description'></input> 
+			</p>
+		</div>
+		<div class='row'>
+			<p class='col-md-6'>
+				<label>Start:</label>
+				<datetimepicker
+				data-ng-model="entry.start"
+				data-on-set-time="updateInputs()"
+				data-datetimepicker-config="{'minView': 'hour', 'startView': 'hour'}">
+			</datetimepicker>
+			</p>
+			<p class='col-md-6'>
+				<label>End:</label>
+				<datetimepicker
+				data-ng-model="entry.end"
+				data-datetimepicker-config="{'minView': 'hour', 'startView': 'hour'}">
+			</datetimepicker>
+			</p>
+		</div>
+		<div class='row'>
+			<button type='button' class='btn btn-primary' ng-click='addEntry()'>Add Entry</button>
+		</div>
+		<br>
 	</div>
 
 	<div class="footer">
