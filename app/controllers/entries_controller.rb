@@ -10,7 +10,7 @@ class EntriesController < ApplicationController
 	end
 
 	def create
-		@entry = Entry.create(start: params[:start], end: params[:end], description: params[:description])
+		@entry = Entry.create(start: params[:start], end: params[:end], description: params[:description], paid: false)
 		render json: @entry
 	end
 
