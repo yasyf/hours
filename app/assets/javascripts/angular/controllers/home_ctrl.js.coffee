@@ -1,4 +1,4 @@
-App.controller 'HomeCtrl', ['$scope', 'Restangular', ($scope, Restangular) ->
+App.controller 'HomeCtrl', ['$scope', '$location', 'Restangular', ($scope, $location, Restangular) ->
 	$scope.addDates = (entry) ->
 		entry.start = new Date(entry.start)
 		entry.end = new Date(entry.end)
@@ -7,6 +7,12 @@ App.controller 'HomeCtrl', ['$scope', 'Restangular', ($scope, Restangular) ->
 		entries = Restangular.all('entries')
 		entries.post($scope.entry).then (entry) ->
 			$scope.entries.push $scope.addDates(entry)
+	$scope.downloadCSV = ->
+		url = Restangular.all('export').getRequestedUrl() + '.csv?'
+		_.forOwn $scope.export, (v, k) ->
+			url += k + '=' + Number(v) + '&'
+		url
+
 	$scope.sumHours = ->
 		$scope.hours = $scope.entries?.reduce (t, n) ->
 			t + (n.end.getHours() - n.start.getHours())
@@ -31,6 +37,13 @@ App.controller 'HomeCtrl', ['$scope', 'Restangular', ($scope, Restangular) ->
 			start: start
 			end: end
 			description: null
+		start = new Date()
+		start.setDate(start.getDate() - 5);
+		end = new Date()
+		$scope.export = 
+			start: start
+			end: end
+			offset: -start.getTimezoneOffset()
 	init()
 
 ]

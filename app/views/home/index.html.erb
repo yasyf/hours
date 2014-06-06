@@ -3,13 +3,14 @@
 		<ul class="nav nav-pills pull-right">
 			<li ng-class="{active: tab == 0}" ng-click="tab = 0"><a>Home</a></li>
 			<li ng-class="{active: tab == 1}" ng-click="tab = 1"><a>Add</a></li>
+			<li ng-class="{active: tab == 2}" ng-click="tab = 2"><a>Export</a></li>
 		</ul>
 		<h3 class="text-muted">Yasyf Hours</h3>
 	</div>
 
 	<div class='tab' ng-show='tab == 0'>
 		<div class='row' ng-click='sumHours()'>
-			<p>{{sumHours()}} Total Hours</p>
+			<h4>{{sumHours()}} Total Hours</h4>
 		</div>
 		<br>
 		<div class='row'>
@@ -51,6 +52,31 @@
 		</div>
 		<div class='row'>
 			<button type='button' class='btn btn-primary' ng-click='addEntry()'>Add Entry</button>
+		</div>
+	</div>
+
+	<div class='tab' ng-show='tab == 2'>
+		<div class='row'>
+			<h4>Export</h4>
+		</div>
+		<div class='row'>
+			<p class='col-md-6'>
+				<label>Start:</label>
+				<datetimepicker
+				data-ng-model="export.start"
+				data-datetimepicker-config="{'minView': 'day', 'startView': 'day'}">
+			</datetimepicker>
+			</p>
+			<p class='col-md-6'>
+				<label>End:</label>
+				<datetimepicker
+				data-ng-model="export.end"
+				data-datetimepicker-config="{'minView': 'day', 'startView': 'day'}">
+			</datetimepicker>
+			</p>
+		</div>
+		<div class='row'>
+			<a class='btn btn-primary' href='{{downloadCSV()}}'>Download CSV</a>
 		</div>
 		<br>
 	</div>
