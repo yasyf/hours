@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
 
 	def index
-		render json: Entry.all
+		render json: Entry.all.order(start: :asc)
 	end
 
 	def show
