@@ -21,8 +21,7 @@ class ExportController < ApplicationController
 			entries = Entry.where(paid: false).order(start: :asc)
 		end
 
-		offset = params[:offset].to_i.minute || UTC_OFFSET.hour
-		
+		offset = params[:offset].nil? ? UTC_OFFSET.hour : params[:offset].to_i.minute		
 
 		csv_string = CSV.generate do |csv|
 		  csv << ["Description", "Start", "End", "Hours"]
