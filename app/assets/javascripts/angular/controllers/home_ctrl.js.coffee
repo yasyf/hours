@@ -15,7 +15,7 @@ App.controller 'HomeCtrl', ['$scope', '$location', 'Restangular', ($scope, $loca
 
 	$scope.sumHours = ->
 		$scope.hours = $scope.entries?.reduce (t, n) ->
-			t + (n.end.getHours() - n.start.getHours())
+			t + Math.abs(n.end.getHours() - n.start.getHours())
 		, 0
 	$scope.updateInputs = ->
 		$scope.entry.description = $scope.entry.start.toLocaleString 'en-us', weekday: 'long', month: "long", day: 'numeric'
